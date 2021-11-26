@@ -210,6 +210,91 @@ void Tienda::imprimirArticulos(){
     cant = 0;
 }
 
+void Tienda::buscarArticulos(){
+    int op = 0;
+    cout << "1.Categorias" << endl;
+    cout << "2.Tallas" << endl;
+    cout << "3.Precio menor a mayor" << endl;
+    cout << "4.Precio mayor a menor" << endl;
+    cout << "5.Ninguna" << endl;
+    cin >> op;
+    switch(op){
+        case 1:
+        {
+            for(int i = 0; i < categorias.size(); i++){
+                string cat = categorias[i]->getNombre();
+                cout << cat << ":" << endl;
+                for(int j = 0; j < articulos.size(); j++){
+                    Categoria* C = articulos[j]->getCategoria();
+                    string cat_art = C->getNombre();
+                    if(cat_art == cat){
+                        string n = articulos[j]->getNombre();
+                        cout << n << endl;
+                    }
+                    delete C;
+                }
+            }
+        }
+        break;
+        case 2:
+        {
+            char talla;
+            cout << "Ingrese talla a buscar" << endl;
+            cin >> talla;
+            for(int i = 0; i < articulos.size(); i++){
+                string t = articulos[i]->getTallas();
+                if(t.find(talla)){
+                    string n = articulos[i]->getNombre();
+                    cout << n << endl;
+                }
+            }
+        }
+        break;
+        case 3:
+        {
+            vector<Articulo*> temp = this->articulos;
+            int c = 0;
+            for(int i = 0; i < temp.size(); i++){
+                for(int j = i + 1; j < temp.size(); j++){
+                    if(temp[i]->getPrecio() > temp[j]->getPrecio()){
+                        c = temp[i]->getPrecio();
+                        temp[i]->setPrecio(temp[j]->getPrecio());
+                        temp[j]->setPrecio(c);
+                    }
+                }
+            }
+        }
+        break;
+        case 4:
+        {
+
+        }
+        break;
+        case 5:
+        {
+            for(int i = 0; i < articulos.size(); i++){
+                string nombre = articulos[i]->getNombre();
+                string tallas = articulos[i]->getTallas();
+                int precio = articulos[i]->getPrecio();
+                int cantidad = articulos[i]->getCantidad();
+                int descuento = articulos[i]->getDescuento();
+                Categoria* c = articulos[i]->getCategoria();
+                string categoria = c->getNombre();
+                delete c;
+                cout << nombre << " ";
+                cout << tallas << " ";
+                cout << precio << " ";
+                cout << cantidad << " ";
+                cout << descuento << " ";
+                cout << categoria << " ";
+                cout <<"\n";
+            }
+        }
+        break;
+        default: cout << "Error" << endl;
+    }
+}
+
 void Tienda::eliminarArticulo(){
     int p = 0;
     cout << "ingrese posicion del articulo a eliminar" << endl;

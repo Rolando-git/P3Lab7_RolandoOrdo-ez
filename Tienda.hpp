@@ -21,5 +21,6 @@ class Tienda{
         void crearArticulo();
         void editarArticulo();
         void imprimirArticulos();
+        void buscarArticulos();
         void eliminarArticulo();
 };
