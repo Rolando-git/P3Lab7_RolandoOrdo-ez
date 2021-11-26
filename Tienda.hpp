@@ -17,6 +17,7 @@ class Tienda{
     public:
         Tienda();
         ~Tienda();
+        void crearCategoria();
         void crearArticulo();
         void editarArticulo();
         void imprimirArticulos();

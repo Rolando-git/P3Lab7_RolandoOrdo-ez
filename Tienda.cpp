@@ -16,6 +16,37 @@ Tienda::~Tienda(){
     categorias.clear();
 }
 
+void Tienda::crearCategoria(){
+    for(int i = 0; i < 4; i++){
+        if(i == 0){
+            Categoria* c = new Categoria("shoes");
+            categorias.push_back(c);
+            delete c;
+        }
+        if(i == 1){
+            Categoria* c = new Categoria("hoodies");
+            categorias.push_back(c);
+            delete c;
+        }
+        if(i == 2){
+            Categoria* c = new Categoria("t-shirts");
+            categorias.push_back(c);
+            delete c;
+        }
+        if(i == 3){
+            Categoria* c = new Categoria("jackets");
+            categorias.push_back(c);
+            delete c;
+        }
+    }
+    string cat;
+    cout << "Ingrese nueva categoria" << endl;
+    cin >> cat;
+    Categoria* c = new Categoria(cat);
+    categorias.push_back(c);
+    delete c;
+}
+
 void Tienda::crearArticulo(){
     string nombre;
     cout << "nombre del articulo:" << endl;
@@ -42,22 +73,146 @@ void Tienda::crearArticulo(){
     cin >> op;
     switch(op){
         case 1:
-            c = new Categoria("shoes");
+            c = categorias[0];
         break;
         case 2:
-            c = new Categoria("hoodies");
+            c = categorias[1];
         break;
         case 3:
-            c = new Categoria("t-shirts");
+            c = categorias[2];
         break;
         case 4:
-            c = new Categoria("jackets");
+            c = categorias[3];
         break;
-        default: c = new Categoria("N/A");
+        default: c = categorias[4];
     }
-    categorias.push_back(c);
     Articulo* a = new Articulo(nombre,talla,precio,cantidad,descuento,c);
     articulos.push_back(a);
     delete a;
     delete c;
+}
+
+void Tienda::editarArticulo(){
+    int p = 0;
+    cout << "ingrese posicion del articulo a editar" << endl;
+    cin >> p;
+    int op = 0;
+    cout << "1.Nombre" << endl;
+    cout << "2.Talla" << endl;
+    cout << "3.Precio" << endl;
+    cout << "4.Cantidad" << endl;
+    cout << "5.Descuento" << endl;
+    cout << "6.Categoria" << endl;
+    cin >> op;
+    switch(op){
+        case 1:
+        {
+            string nombre;
+            cout << "ingrese nuevo nombre" << endl;
+            cin >> nombre;
+            articulos[p]->setNombre(nombre);
+        }
+        break;
+        case 2:
+        {
+            string talla;
+            cout << "ingrese nueva talla" << endl;
+            cin >> talla;
+            articulos[p]->setTallas(talla);
+        }
+        break;
+        case 3:
+        {
+            int precio = 0;
+            cout << "ingrese nuevo precio" << endl;
+            cin >> precio;
+            articulos[p]->setPrecio(precio);
+        }
+        break;
+        case 4:
+        {
+            int cantidad = 0;
+            cout << "ingrese cantidad" << endl;
+            cin >> cantidad;
+            articulos[p]->setCantidad(cantidad);
+        }
+        break;
+        case 5:
+        {
+            int descuento = 0;
+            cout << "ingrese nuevo descuento" << endl;
+            cin >> descuento;
+            articulos[p]->setDescuento(descuento);
+        }
+        break;
+        case 6:
+        {
+            string cat;
+            cout << "ingrese nueva categoria" << endl;
+            cin >> cat;
+            Categoria* c = new Categoria(cat);
+            articulos[p]->setCategoria(c);
+            delete c;
+        }
+        break;
+        default: cout << "Error, opcion no valida" << endl;
+    }
+}
+
+void Tienda::imprimirArticulos(){
+    //unidades por categoria
+    cout << "UNIDADES POR CATEGORIA" << endl;
+    for(int i = 0; i < categorias.size(); i++){
+        string cat = categorias[i]->getNombre();
+        cout << cat << ":" << endl;
+        int cant = 0;
+        for(int j = 0; j < articulos.size(); j++){
+            Categoria* C = articulos[j]->getCategoria();
+            string cat_art = C->getNombre();
+            if(cat_art == cat){
+                cant = cant + articulos[j]->getCantidad();
+                string n = articulos[j]->getNombre();
+                cout << n << " " << cant << endl;
+            }
+            delete C;
+        }
+    }
+    //precio total por categoria
+    cout << "PRECIO TOTAL POR CATEGORIA" << endl;
+    for(int i = 0; i < categorias.size(); i++){
+        string cat = categorias[i]->getNombre();
+        cout << cat << ":" << endl;
+        int cant = 0;
+        for(int j = 0; j < articulos.size(); j++){
+            Categoria* C = articulos[j]->getCategoria();
+            string cat_art = C->getNombre();
+            if(cat_art == cat){
+                cant = cant + articulos[j]->getPrecio();
+                cout << cant << endl;
+            }
+            delete C;
+        }
+    }
+    //precio total de los articulos de la tienda sin descuento
+    cout << "PRECIO TOTAL DE LOS ARTICULOS SIN DESCUENTO" << endl;
+    int cant = 0;
+    for(int i = 0; i < articulos.size(); i++){
+        cant = cant + articulos[i]->getPrecio();
+    }
+    cout << cant << endl;
+    cant = 0;
+    //total de unidades en la Tienda
+    cout << "TOTAL DE UNIDADES EN LA TIENDA" << endl;
+    for(int i = 0; i < articulos.size(); i++){
+        cant = cant + articulos[i]->getCantidad();
+    }
+    cout << cant << endl;
+    cant = 0;
+}
+
+void Tienda::eliminarArticulo(){
+    int p = 0;
+    cout << "ingrese posicion del articulo a eliminar" << endl;
+    cin >> p;
+    this->articulos.erase(articulos.begin() + p);
 }
