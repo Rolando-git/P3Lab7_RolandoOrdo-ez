@@ -253,21 +253,43 @@ void Tienda::buscarArticulos(){
         case 3:
         {
             vector<Articulo*> temp = this->articulos;
-            int c = 0;
+            Articulo* a;
             for(int i = 0; i < temp.size(); i++){
                 for(int j = i + 1; j < temp.size(); j++){
                     if(temp[i]->getPrecio() > temp[j]->getPrecio()){
-                        c = temp[i]->getPrecio();
-                        temp[i]->setPrecio(temp[j]->getPrecio());
-                        temp[j]->setPrecio(c);
+                        a = temp[i];
+                        temp[i] = temp[j];
+                        temp[j] = a;
                     }
                 }
             }
+            delete a;
+            for(int i = 0; temp.size(); i++){
+                string n = temp[i]->getNombre();
+                cout << n << endl;
+            }
+            temp.clear();
         }
         break;
         case 4:
         {
-
+            vector<Articulo*> temp = this->articulos;
+            Articulo* a;
+            for(int i = 0; i < temp.size(); i++){
+                for(int j = i + 1; j < temp.size(); j++){
+                    if(temp[i]->getPrecio() > temp[j]->getPrecio()){
+                        a = temp[i];
+                        temp[i] = temp[j];
+                        temp[j] = a;
+                    }
+                }
+            }
+            delete a;
+            for(int i = temp.size()-1; i > 0; i--){
+                string n = temp[i]->getNombre();
+                cout << n << endl;
+            }
+            temp.clear();
         }
         break;
         case 5:
