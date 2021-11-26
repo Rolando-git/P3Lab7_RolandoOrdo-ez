@@ -1,6 +1,6 @@
 #include "Articulo.hpp"
 
-Articulo::Articulo(string nombre, string tallas, int precio, int cantidad, int descuento, string categoria){
+Articulo::Articulo(string nombre, string tallas, int precio, int cantidad, int descuento, Categoria* categoria){
     this->nombre = nombre;
     this->tallas = tallas;
     this->precio = precio;
@@ -49,10 +49,10 @@ int Articulo::getDescuento(){
     return this->descuento;
 }
 
-void Articulo::setCategoria(string categoria){
+void Articulo::setCategoria(Categoria* categoria){
     this->categoria = categoria;
 }
 
-string Articulo::getCategoria(){
+Categoria* Articulo::getCategoria(){
     return this->categoria;
 }

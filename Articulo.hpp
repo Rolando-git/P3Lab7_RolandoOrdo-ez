@@ -1,4 +1,5 @@
 #pragma once
+#include "Categoria.hpp"
 #include <string>
 using std::string;
 
@@ -8,10 +9,10 @@ class Articulo{
     int precio;
     int cantidad;
     int descuento;
-    string categoria;
+    Categoria* categoria;
 
     public:
-        Articulo(string,string,int,int,int,string);
+        Articulo(string,string,int,int,int,Categoria*);
         void setNombre(string);
         string getNombre();
         void setTallas(string);
@@ -22,6 +23,6 @@ class Articulo{
         int getCantidad();
         void setDescuento(int);
         int getDescuento();
-        void setCategoria(string);
-        string getCategoria();
+        void setCategoria(Categoria*);
+        Categoria* getCategoria();
 };
